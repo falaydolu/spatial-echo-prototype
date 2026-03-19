@@ -36,10 +36,71 @@
     navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(s => { document.getElementById('camera-bg').srcObject = s; });
 
     const archiveWaypoints = {
-        "OPPENHEIMER'S OFFICE": [{lat:37.8732,lon:-122.2575,name:"Physics North"}, {lat:37.8728,lon:-122.2568,name:"LeConte Hall"}],
-        "THE GATSBY PARTY": [{lat:40.7512,lon:-74.0086,name:"Hudson Pier"}, {lat:40.7515,lon:-74.0100,name:"Green Light"}],
-        "THE INDOOR RAILWAY": [{lat:40.7410,lon:-74.0040,name:"Freight Terminal"}, {lat:40.7420,lon:-74.0050,name:"Google NYC HQ"}],
-        "THE GARAGE STARTUP": [{lat:37.4220,lon:-122.0840,name:"Garage Site"}, {lat:37.4275,lon:-122.0848,name:"Googleplex Core"}]
+        // --- BERKELEY ---
+        "OPPENHEIMER'S OFFICE": [
+            {lat: 37.8732, lon: -122.2575, name: "Physics North"}, 
+            {lat: 37.8728, lon: -122.2568, name: "LeConte Hall"}
+        ],
+        "FREE SPEECH MOVEMENT": [
+            {lat: 37.8695, lon: -122.2591, name: "Sproul Plaza"}, 
+            {lat: 37.8692, lon: -122.2591, name: "Sproul Hall Steps"}
+        ],
+        "THE GRADUATE (SET)": [
+            {lat: 37.8715, lon: -122.2555, name: "Strawberry Creek"}, 
+            {lat: 37.8711, lon: -122.2550, name: "Faculty Club Bridge"}
+        ],
+
+        // --- NEW YORK CITY ---
+        "THE GATSBY PARTY": [
+            {lat: 40.7512, lon: -74.0086, name: "Hudson River Park"}, 
+            {lat: 40.7515, lon: -74.0100, name: "Pier 54 Edge"}
+        ],
+        "V-J DAY IN TIMES SQ": [
+            {lat: 40.7580, lon: -73.9855, name: "Times Square South"}, 
+            {lat: 40.7589, lon: -73.9851, name: "45th & Broadway"}
+        ],
+        "THE BLACKOUT": [
+            {lat: 40.7527, lon: -73.9772, name: "Grand Central Terminal"}, 
+            {lat: 40.7535, lon: -73.9785, name: "42nd St Shadows"}
+        ],
+
+        // --- SAN FRANCISCO ---
+        "VERTIGO (SCENE 22)": [
+            {lat: 37.8085, lon: -122.4752, name: "Marine Drive"}, 
+            {lat: 37.8105, lon: -122.4765, name: "Under the Bridge"}
+        ],
+        "SUMMER OF LOVE": [
+            {lat: 37.7699, lon: -122.4469, name: "Haight & Ashbury"}, 
+            {lat: 37.7694, lon: -122.4527, name: "Alvord Lake, GG Park"}
+        ],
+        "THE GREAT QUAKE": [
+            {lat: 37.7884, lon: -122.4020, name: "Market & Montgomery"}, 
+            {lat: 37.7888, lon: -122.4025, name: "The Palace Hotel"}
+        ],
+
+        // --- LOS ANGELES ---
+        "SINGIN' IN THE RAIN": [
+            {lat: 34.0841, lon: -118.3190, name: "Paramount Studio Lot"}, 
+            {lat: 34.0838, lon: -118.3195, name: "The Famous Lamp Post"}
+        ],
+        "HOLLYWOODLAND": [
+            {lat: 34.1266, lon: -118.3265, name: "Beachwood Canyon View"}, 
+            {lat: 34.1341, lon: -118.3215, name: "Mount Lee Base"}
+        ],
+        "BLADE RUNNER SET": [
+            {lat: 34.0505, lon: -118.2485, name: "3rd & Broadway"}, 
+            {lat: 34.0511, lon: -118.2492, name: "Bradbury Interior"}
+        ],
+
+        // --- GOOGLE SURPRISES ---
+        "THE INDOOR RAILWAY": [
+            {lat: 40.7414, lon: -74.0040, name: "111 8th Ave Lobby"}, 
+            {lat: 40.7410, lon: -74.0030, name: "The Freight Elevators"}
+        ],
+        "THE GARAGE STARTUP": [
+            {lat: 37.4220, lon: -122.0840, name: "Charleston Rd Garage"}, 
+            {lat: 37.4275, lon: -122.0848, name: "Googleplex Core"}
+        ]
     };
 
     let currentStep = 0, selectedEcho = null, targetCoords = { lat: 0, lon: 0 };
@@ -49,9 +110,29 @@
         if (selectedEcho) {
             document.getElementById('role-name').innerText = selectedEcho.role;
             typeWriter(selectedEcho.act1);
-            const wp = archiveWaypoints[selectedEcho.title] || [{lat:0,lon:0,name:"Unknown Location"}];
-            targetCoords = wp[0];
-            document.getElementById('target-name').innerText = "TARGET: " + targetCoords.name;
+
+            // 1. 尝试从数据库获取固定坐标
+            let wp = archiveWaypoints[selectedEcho.title];
+
+            if (wp) {
+                targetCoords = wp[0];
+                document.getElementById('target-name').innerText = "TARGET: " + targetCoords.name;
+            } else {
+                // 2. 如果是“其他地方”（General 故事），自动计算坐标
+                // 将用户当前位置设为第一站，目标设在用户北面 50 米处
+                navigator.geolocation.getCurrentPosition((pos) => {
+                    const uLat = pos.coords.latitude;
+                    const uLon = pos.coords.longitude;
+                    
+                    // 自动生成一个向北偏移约 50 米的目标点
+                    targetCoords = {
+                        lat: uLat + 0.00045, 
+                        lon: uLon,
+                        name: "Temporal Anchor Point"
+                    };
+                    document.getElementById('target-name').innerText = "TARGET: " + targetCoords.name;
+                });
+            }
         }
         startTracking();
     };
