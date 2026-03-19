@@ -111,20 +111,22 @@
             document.getElementById('role-name').innerText = selectedEcho.role;
             typeWriter(selectedEcho.act1);
 
-            // 1. 尝试从数据库获取固定坐标
+            // 1. 尝试从硬编码数据库获取固定坐标
             let wp = archiveWaypoints[selectedEcho.title];
+
+            // 2. 如果没有硬编码，检查 Gemini 动态生成的 waypoints（存在 story 对象里）
+            if (!wp && selectedEcho.waypoints && selectedEcho.waypoints.length === 2) {
+                wp = selectedEcho.waypoints;
+            }
 
             if (wp) {
                 targetCoords = wp[0];
                 document.getElementById('target-name').innerText = "TARGET: " + targetCoords.name;
             } else {
-                // 2. 如果是“其他地方”（General 故事），自动计算坐标
-                // 将用户当前位置设为第一站，目标设在用户北面 50 米处
+                // 3. 最终 fallback：用户北面约 50 米
                 navigator.geolocation.getCurrentPosition((pos) => {
                     const uLat = pos.coords.latitude;
                     const uLon = pos.coords.longitude;
-                    
-                    // 自动生成一个向北偏移约 50 米的目标点
                     targetCoords = {
                         lat: uLat + 0.00045, 
                         lon: uLon,
@@ -170,7 +172,10 @@
     function arriveAtCheckpoint() {
         if (currentStep === 0 && selectedEcho) {
             currentStep = 1;
-            const wp = archiveWaypoints[selectedEcho.title];
+            let wp = archiveWaypoints[selectedEcho.title];
+            if (!wp && selectedEcho.waypoints && selectedEcho.waypoints.length === 2) {
+                wp = selectedEcho.waypoints;
+            }
             if(wp) targetCoords = wp[1];
             document.getElementById('target-name').innerText = "FINAL TARGET: " + (targetCoords.name || "Endpoint");
             typeWriter(selectedEcho.act2);
