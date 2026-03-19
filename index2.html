@@ -114,20 +114,59 @@
             { tab: "1964", title: "FREE SPEECH MOVEMENT", role: "THE PROTESTER", act1: "<b>YOU ARE A STUDENT AT BERKELEY.</b> Mario Savio has just climbed onto the police car. <b>YOU ARE GOING TO WALK TOWARD THE STEPS.</b> Refuse to move until they hear you.", act2: "<b>ARRIVED AT SPROUL HALL STEPS.</b> Stop and feel the power. Sit down; your silence is the loudest speech of all." },
             { tab: "1967", title: "THE GRADUATE (SET)", role: "THE ACTOR", act1: "<b>YOU ARE DUSTIN HOFFMAN.</b> It's 1967, Scene 14. <b>YOU ARE GOING TO WALK ACROSS STRAWBERRY CREEK</b> repeatedly until the director is satisfied.", act2: "<b>ARRIVED AT FACULTY CLUB BRIDGE.</b> Embrace the alienation. You aren't just an actor; you are a drifter." }
         ],
+        SanFrancisco: [
+            { tab: "1958", title: "VERTIGO (SCENE 22)", role: "THE DETECTIVE", act1: "<b>YOU ARE SCOTTIE FERGUSON.</b> Madeleine is walking toward the water. You can't stop following her. <b>YOU ARE GOING TO WALK ALONG MARINE DRIVE.</b> The fog is Hitchcock's direction; trust it.", act2: "<b>ARRIVED UNDER THE BRIDGE.</b> Look up at the rust-red cables. The vertigo isn't the height — it's the obsession pulling you forward." },
+            { tab: "1967", title: "SUMMER OF LOVE", role: "THE DRIFTER", act1: "<b>YOU ARE A STRANGER WHO JUST ARRIVED IN HAIGHT-ASHBURY.</b> Someone hands you a flower. <b>YOU ARE GOING TO WALK TOWARD GOLDEN GATE PARK.</b> The revolution smells like patchouli and possibility.", act2: "<b>ARRIVED AT ALVORD LAKE.</b> Sit on the grass. You are not protesting anything — you are simply refusing to leave." },
+            { tab: "1906", title: "THE GREAT QUAKE", role: "THE SURVIVOR", act1: "<b>YOU ARE A CLERK AT THE PALACE HOTEL.</b> It is 5:12 AM, April 18th. The floor has just shifted. <b>YOU ARE GOING TO WALK DOWN MARKET STREET.</b> Stay close to the center; the facades are falling.", act2: "<b>ARRIVED AT THE PALACE HOTEL.</b> Touch the wall. This building burned and was rebuilt. So were you." }
+        ],
+        NewYork: [
+            { tab: "1922", title: "THE GATSBY PARTY", role: "THE GUEST", act1: "<b>YOU ARE AN UNINVITED GUEST AT GATSBY'S PARTY.</b> The jazz is deafening and the champagne is endless. <b>YOU ARE GOING TO WALK ALONG THE HUDSON.</b> Look east — the green light is not for you.", act2: "<b>ARRIVED AT THE PIER'S EDGE.</b> Stand still. Gatsby believed in the green light. You believe in the echo of it." },
+            { tab: "1945", title: "V-J DAY IN TIMES SQ", role: "THE SAILOR", act1: "<b>YOU ARE A SAILOR ON LEAVE.</b> Japan has surrendered. The entire city is screaming. <b>YOU ARE GOING TO WALK INTO TIMES SQUARE.</b> Every stranger is your best friend today.", act2: "<b>ARRIVED AT 45TH & BROADWAY.</b> Stop in the middle of the crowd. History is being photographed around you, but you are living it." },
+            { tab: "1977", title: "THE BLACKOUT", role: "THE WITNESS", act1: "<b>YOU ARE A COMMUTER STRANDED IN GRAND CENTRAL.</b> The lights just died. All of Manhattan is dark. <b>YOU ARE GOING TO WALK INTO THE TERMINAL.</b> Listen — the city is louder without electricity.", act2: "<b>ARRIVED IN THE SHADOWS OF 42ND ST.</b> Look up. Without the lights, you can almost see the stars over Manhattan." }
+        ],
+        LosAngeles: [
+            { tab: "1952", title: "SINGIN' IN THE RAIN", role: "THE PERFORMER", act1: "<b>YOU ARE GENE KELLY, TAKE 7.</b> The rain machines are soaking through your suit. You don't care. <b>YOU ARE GOING TO WALK THROUGH THE STUDIO LOT.</b> Smile — the camera is always rolling.", act2: "<b>ARRIVED AT THE FAMOUS LAMP POST.</b> Grab it. Swing. The puddles are your stage and the rain is your applause." },
+            { tab: "1923", title: "HOLLYWOODLAND", role: "THE DREAMER", act1: "<b>YOU ARE A REAL ESTATE DEVELOPER IN 1923.</b> The sign on the hill says HOLLYWOODLAND. <b>YOU ARE GOING TO WALK UP BEACHWOOD CANYON.</b> You are selling a fantasy before cinema even learns to talk.", act2: "<b>ARRIVED AT MOUNT LEE BASE.</b> Look up at the letters. Four of them will be torn down. The dream will only get bigger." },
+            { tab: "2019", title: "BLADE RUNNER SET", role: "THE REPLICANT", act1: "<b>YOU ARE A REPLICANT WHO DOESN'T KNOW IT YET.</b> The neon reflects off wet pavement. <b>YOU ARE GOING TO WALK DOWN 3RD & BROADWAY.</b> Count the floors of the Bradbury Building. Your memories may not be yours.", act2: "<b>ARRIVED AT THE BRADBURY INTERIOR.</b> Look up through the iron lattice. The light falling through is the oldest thing in this city." }
+        ],
+        GoogleNY: [
+            { tab: "1936", title: "THE INDOOR RAILWAY", role: "THE CONDUCTOR", act1: "<b>YOU ARE A FREIGHT CONDUCTOR IN 1936.</b> This building was the Port Authority Inland Terminal. Trains ran through its belly. <b>YOU ARE GOING TO WALK THROUGH THE LOBBY.</b> The rails are buried under server racks now.", act2: "<b>ARRIVED AT THE FREIGHT ELEVATORS.</b> These lifts once moved cargo from the High Line. Now they move engineers. The ghosts of locomotives idle here." }
+        ],
+        GoogleMV: [
+            { tab: "1998", title: "THE GARAGE STARTUP", role: "THE FOUNDER", act1: "<b>YOU ARE IN SUSAN WOJCICKI'S GARAGE.</b> It is September 1998. Two Stanford dropouts just rented your garage for $1,700. <b>YOU ARE GOING TO WALK TO THE GARAGE.</b> The search engine doesn't even have a logo yet.", act2: "<b>ARRIVED AT THE GOOGLEPLEX CORE.</b> Look around. All of this grew from a single rental check and a better sorting algorithm." }
+        ],
         General: [
             { tab: "ARCHV", title: "Historical Fragment", role: "THE CHRONICLER", act1: "<b>YOU ARE A TEMPORAL CHRONICLER.</b> Gemini has detected a resonance. <b>YOU ARE GOING TO EXTRACT THE STORY.</b> Observe the architectural patterns.", act2: "<b>ARRIVED AT THE CORE.</b> Observe the oldest structure nearby. You are extracting the phantom memory." },
             { tab: "FILM", title: "Uncut Cinema", role: "THE CINEMATOGRAPHER", act1: "<b>YOU ARE A DIRECTOR IN SEARCH OF A LOCATION.</b> <b>YOU ARE GOING TO SCOUT THE SCENE.</b> Find where the shadow hits the pavement.", act2: "<b>SET REACHED.</b> Feel the black-and-white texture. You aren't a tourist; you are filming a masterpiece." }
         ]
     };
 
+    // Geo-fence definitions: [latMin, latMax, lonMin, lonMax, databaseKey]
+    const geoFences = [
+        [37.85,  37.90, -122.30, -122.23, "Berkeley"],       // UC Berkeley campus
+        [37.70,  37.84, -122.52, -122.38, "SanFrancisco"],   // SF proper
+        [40.70,  40.80, -74.02,  -73.93,  "NewYork"],        // Manhattan
+        [33.90,  34.20, -118.40, -118.20, "LosAngeles"],     // Central LA
+        [40.738, 40.745,-74.008, -74.000, "GoogleNY"],       // 111 8th Ave block
+        [37.41,  37.43, -122.09, -122.07, "GoogleMV"],       // Googleplex area
+    ];
+
+    function detectRegion(lat, lon) {
+        for (const [latMin, latMax, lonMin, lonMax, key] of geoFences) {
+            if (lat >= latMin && lat <= latMax && lon >= lonMin && lon <= lonMax) {
+                return key;
+            }
+        }
+        return "General";
+    }
+
     function loadContext() {
-        // Force clear old storage once
         localStorage.clear();
         navigator.geolocation.getCurrentPosition((pos) => {
             const lat = pos.coords.latitude;
-            // Since you are in Berkeley, this will trigger the Berkeley set.
-            let echoes = (lat > 37.8 && lat < 37.9) ? archiveDatabase.Berkeley : archiveDatabase.General;
-            render(echoes);
+            const lon = pos.coords.longitude;
+            const region = detectRegion(lat, lon);
+            render(archiveDatabase[region]);
             document.getElementById('loading').style.display = 'none';
         }, (err) => {
             render(archiveDatabase.General);
